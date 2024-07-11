@@ -41,7 +41,7 @@ pub async fn get_data_from_dsn(
                                 Ok(s) => s,
                                 Err(_) => String::from("Invalid UTF-8"),
                             },
-                            None => String::from("Missing value"),
+                            None => String::from(""),
                         })
                         .collect();
 

@@ -1,5 +1,6 @@
 use std::env;
-
+mod file;
+mod odbc;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -28,4 +29,31 @@ fn main() {
     println!("Sheet ID: {}", sheet_id);
     println!("Sheet Range: {}", sheet_range);
     println!("Google Cert: {}", google_cert);
+
+    println!("Starting");
+
+    let mut query = String::new();
+    tokio::runtime::Runtime::new().unwrap().block_on(async {
+        let sql_results = file::get_string_from_file(sql_file);
+        match sql_results {
+            Ok(results) => {
+                println!("String from File Received{:?}", results);
+                query = results;
+            }
+            Err(e) => eprintln!("Error: {}", e),
+        }
+    });
+    if query.is_empty() {
+        eprintln!("Query is empty. Exiting.");
+        return;
+    }
+
+    tokio::runtime::Runtime::new().unwrap().block_on(async {
+        let query_results = odbc::get_data_from_dsn(dsn, &query).await;
+        match query_results {
+            Ok(results) => println!("Query executed successfully{:?}", results),
+            Err(e) => eprintln!("Error: {}", e),
+        }
+    });
+    println!("Ending");
 }

@@ -91,6 +91,7 @@ pub async fn send_data_to_google_sheet(
                 println!("Range Matches Input: {}", range);
                 Ok(())
             } else {
+                println!("Range Does Not Match Input: {}", range);
                 Err("Data was not written to the expected range".into())
             }
         } else {

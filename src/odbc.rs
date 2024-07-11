@@ -12,8 +12,9 @@ pub async fn get_data_from_dsn(
     let mut fileWriter = csv::Writer::from_writer(file);
 
     let mut return_results: Vec<Vec<String>> = Vec::new();
-    println!("Getting Data from {} ", dsn_name);
-    println!("Query: {}", query_string);
+    println!("Getting Data from \x1b[34m{}\x1b[0m ", dsn_name);
+
+    println!("\x1b[34mQuery: {}\x1b[0m", query_string);
 
     let environment = Environment::new()?;
 

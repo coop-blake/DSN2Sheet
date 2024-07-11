@@ -13,5 +13,7 @@ pub fn get_string_from_file(file_name: &str) -> Result<String, Box<dyn std::erro
         result.push_str(&line?);
         result.push('\n');
     }
+    //remove the last newline
+    result.pop();
     Ok(result)
 }

@@ -1,5 +1,6 @@
 use std::env;
 mod file;
+mod google;
 mod odbc;
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -47,13 +48,37 @@ fn main() {
         eprintln!("Query is empty. Exiting.");
         return;
     }
+    let mut data_for_google: Option<Vec<Vec<String>>> = None;
 
     tokio::runtime::Runtime::new().unwrap().block_on(async {
         let query_results = odbc::get_data_from_dsn(dsn, &query).await;
         match query_results {
-            Ok(results) => println!("Query executed successfully"),
+            Ok(results) => {
+                data_for_google = Some(results);
+                println!("Query executed successfully")
+            }
             Err(e) => eprintln!("Error: {}", e),
         }
     });
+
+    if data_for_google.is_some() {
+        tokio::runtime::Runtime::new().unwrap().block_on(async {
+            println!("Preparing to send data to Google Sheets");
+            if let Err(err) = google::send_data_to_google_sheet(
+                &google_cert,
+                data_for_google.unwrap(),
+                &sheet_id,
+                &sheet_range,
+            )
+            .await
+            {
+                eprintln!("Error: {}", err)
+            }
+        });
+    } else {
+        eprintln!("No data received from DSN. Exiting.");
+        return;
+    }
+
     println!("Ending");
 }

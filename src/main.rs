@@ -51,7 +51,7 @@ fn main() {
     tokio::runtime::Runtime::new().unwrap().block_on(async {
         let query_results = odbc::get_data_from_dsn(dsn, &query).await;
         match query_results {
-            Ok(results) => println!("Query executed successfully{:?}", results),
+            Ok(results) => println!("Query executed successfully"),
             Err(e) => eprintln!("Error: {}", e),
         }
     });

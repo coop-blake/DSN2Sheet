@@ -9,7 +9,9 @@ pub fn get_string_from_file(file_name: &str) -> Result<String, Box<dyn std::erro
     let reader = BufReader::new(file);
     let mut result = String::new();
     for line in reader.lines() {
+        //unwrap the line and add it to the result with a newline
         result.push_str(&line?);
+        result.push('\n');
     }
     Ok(result)
 }

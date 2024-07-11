@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'DSN2Sheet'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=DSN2Sheet",
+                    "--package=DSN2Sheet"
+                ],
+                "filter": {
+                    "name": "DSN2Sheet",
+                    "kind": "bin"
+                }
+            },
+            "args": ["Prototype", "sql/test.sql", "sd", "s", "s" ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'DSN2Sheet'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=DSN2Sheet",
+                    "--package=DSN2Sheet"
+                ],
+                "filter": {
+                    "name": "DSN2Sheet",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

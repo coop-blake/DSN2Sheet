@@ -37,7 +37,7 @@ fn main() {
         let sql_results = file::get_string_from_file(sql_file);
         match sql_results {
             Ok(results) => {
-                println!("String from File Received{:?}", results);
+                println!("String from File Received{}", results);
                 query = results;
             }
             Err(e) => eprintln!("Error: {}", e),

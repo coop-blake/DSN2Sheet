@@ -19,7 +19,7 @@
                     "kind": "bin"
                 }
             },
-            "args": ["Prototype", "sql/test.sql", "sd", "s", "s" ],
+            "args": ["Prototype", "sql/test.sql", "1gvHKnJ-ZIaiK_52Fj12JOCue9BdHLvwyJR3vG_akFA4", "Sheet1!A1", "certificates/googleCert.json" ],
             "cwd": "${workspaceFolder}"
         },
         {

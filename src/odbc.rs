@@ -4,6 +4,7 @@ use std::io::Write;
 const BATCH_SIZE: usize = 5000;
 use std::fs::File;
 
+
 pub async fn get_data_from_dsn(
     dsn_name: &String,
     query_string: &String,

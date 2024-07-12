@@ -1,11 +1,10 @@
 use std::env;
+mod colors;
 mod file;
 mod google;
 mod odbc;
-mod colors;
 fn main() {
-
-colors::write_blue();
+    colors::write_blue();
     let args: Vec<String> = env::args().collect();
 
     if (args.len() != 6) && (args.len() != 5) {
@@ -35,6 +34,7 @@ colors::write_blue();
     println!("Google Cert: {}", google_cert);
 
     println!("Starting");
+    colors::write_none();
 
     let mut query = String::new();
     tokio::runtime::Runtime::new().unwrap().block_on(async {

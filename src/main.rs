@@ -34,7 +34,7 @@ fn main() {
     println!("Google Cert: {}", google_cert);
 
     println!("Starting");
-    colors::write_none();
+    colors::write_white();
 
     let mut query = String::new();
     tokio::runtime::Runtime::new().unwrap().block_on(async {

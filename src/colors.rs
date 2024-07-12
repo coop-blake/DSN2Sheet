@@ -8,7 +8,7 @@ pub(crate) fn write_blue() -> () {
     }
 }
 
-pub(crate) fn write_none() -> () {
+pub(crate) fn write_white() -> () {
     let mut stdout = StandardStream::stdout(ColorChoice::Always);
     match stdout.set_color(ColorSpec::new().set_fg(Some(Color::White))) {
         Ok(()) => {}

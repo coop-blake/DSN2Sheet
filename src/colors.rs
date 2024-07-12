@@ -1,4 +1,3 @@
-use std::io::{self, Write};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 pub(crate) fn write_blue() -> () {

@@ -98,6 +98,6 @@ pub async fn send_data_to_google_sheet(
             Err("Data was not written to the sheet".into())
         }
     } else {
-        Err(("Unexpected response from Google Sheets".into()))
+        Err("Unexpected response from Google Sheets".into())
     }
 }

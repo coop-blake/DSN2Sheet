@@ -1,10 +1,9 @@
 use std::env;
-mod colors;
 mod file;
 mod google;
 mod odbc;
 fn main() {
-    colors::write_blue();
+    //colors::write_blue();
     let args: Vec<String> = env::args().collect();
 
     if (args.len() != 6) && (args.len() != 5) {
@@ -33,15 +32,14 @@ fn main() {
     println!("Sheet Range: {}", sheet_range);
     println!("Google Cert: {}", google_cert);
 
-    println!("Starting");
-    colors::write_white();
+    println!("Reading SQL File");
+    //colors::write_white();
 
     let mut query = String::new();
     tokio::runtime::Runtime::new().unwrap().block_on(async {
         let sql_results = file::get_string_from_file(sql_file);
         match sql_results {
             Ok(results) => {
-                println!("String from File Received:");
                 query = results;
             }
             Err(e) => eprintln!("Error: {}", e),

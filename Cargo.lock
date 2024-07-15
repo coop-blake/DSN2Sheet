@@ -3,20 +3,6 @@
 version = 3
 
 [[package]]
-name = "DSN2Sheet"
-version = "0.1.0"
-dependencies = [
- "csv",
- "encoding_rs",
- "google-authenticator",
- "google-sheets4",
- "odbc-api",
- "serde_json",
- "termcolor",
- "tokio",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -414,6 +400,20 @@ name = "dpi"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f25c0e292a7ca6d6498557ff1df68f32c99850012b6ea401cf8daf771f22ff53"
+
+[[package]]
+name = "dsn2_sheet"
+version = "0.1.0"
+dependencies = [
+ "csv",
+ "encoding_rs",
+ "google-authenticator",
+ "google-sheets4",
+ "odbc-api",
+ "serde_json",
+ "termcolor",
+ "tokio",
+]
 
 [[package]]
 name = "either"

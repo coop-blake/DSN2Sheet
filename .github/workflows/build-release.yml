@@ -1,0 +1,285 @@
+name: Build and Release
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        target:
+          [
+            x86_64-pc-windows-msvc,
+            i686-pc-windows-msvc,
+            aarch64-pc-windows-msvc
+          ]
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+        with:
+          repository: coop-blake/DSN2Sheet
+          ref: dev
+          path: source
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+
+      - name: Cache cargo registry
+        uses: actions/cache@v2
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry-
+
+      - name: Cache cargo index
+        uses: actions/cache@v2
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-index-
+
+      - name: Cache target directory
+        uses: actions/cache@v2
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-target-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-target-
+
+      # - name: Extract version from Cargo.toml
+      #   id: extract_version
+      #   run: echo "VERSION=$(sed -n 's/^version = \"\([^\"]*\)\"$/\1/p' source/Cargo.toml)" >> $GITHUB_ENV
+      #   env:
+      #     VERSION: ${{ env.VERSION }}
+
+      - name: Build
+        run: cd source && cargo build --release --target ${{ matrix.target }}
+
+      - name: Archive build files
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifact-${{ matrix.target }}
+          path: |
+            source/target/${{ matrix.target }}/release/DSN2Sheet.exe
+            source/target/${{ matrix.target }}/release/DSN2CSV.exe
+
+      - name: Extract version from Cargo.toml
+        id: extract_version
+        run: |
+          $version = (Get-Content -Path source/Cargo.toml | Select-String -Pattern 'version = "(.+)"').Matches.Groups[1].Value
+          Write-Host "VERSION=$version" >> $GITHUB_ENV 
+          Write-Host "VERSION=$version" >> $GITHUB_OUTPUT
+          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+          echo "VERSION=$version" >> $GITHUB_ENV
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          echo "VERSION=$version" >> $GITHUB_OUTPUT
+          Set-Content -Path ./version.txt -Value $version
+        env:
+          VERSION: ${{ env.VERSION }}
+
+      - name: Print VERSION variable
+        run: |
+          echo "${{steps.extract_version.outputs.VERSION}}"
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+        if: always()
+        env:
+          VERSION: ${{ env.VERSION }}
+      - name: Print VERSION variable
+        run: |
+          Write-Host $env:VERSION
+        if: always()
+        env:
+          VERSION: ${{ env.VERSION }}
+
+      - name: Set VERSION if not already set
+        run: |
+          if (-not $env:VERSION) {
+            Write-Host "VERSION=0.1.1" >> $env:GITHUB_ENV
+            echo "VERSION=$version" >> $env:GITHUB_ENV
+          }
+        if: env.VERSION == ''
+        env:
+          VERSION: ${{ env.VERSION }}
+
+      - name: Print VERSION variable
+        run: |
+          Write-Host $env:VERSION
+        if: always()
+        env:
+          VERSION: ${{ env.VERSION }}
+
+      # - name: Save version to artifact
+      #   run: |
+      #     Set-Content -Path ./version.txt -Value $env:VERSION
+      #   env:
+      #     VERSION: ${{ env.VERSION }}
+
+      - name: Check for version.txt file
+        run: |
+          Get-ChildItem -Path ./version.txt | Format-Table
+          Get-Content -Path ./version.txt -ErrorAction SilentlyContinue
+          if ($?) {
+            Write-Host "version.txt found and its content is:"
+            Get-Content -Path ./version.txt
+          }
+          else {
+            Write-Host "version.txt not found"
+          }
+        if: always()
+
+      - name: Upload version artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: version
+          path: version.txt
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v2
+
+      - name: Download version artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: version
+          path: ./release/
+
+      - name: Set VERSION environment variable
+        run: echo "VERSION=$(cat ./release/version.txt)" >> $GITHUB_ENV
+
+      - name: Download build artifacts for x86_64
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact-x86_64-pc-windows-msvc
+          path: ./release/x86_64
+
+      - name: Download build artifacts for i686
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact-i686-pc-windows-msvc
+          path: ./release/i686
+
+      - name: Download build artifacts for aarch64
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact-aarch64-pc-windows-msvc
+          path: ./release/aarch64
+
+      - name: Check for version.txt file
+        run: |
+          ls -l ./release/version.txt
+          cat ./release/version.txt || echo "version.txt not found"
+        if: always()
+
+      - name: Print VERSION variable
+        run: |
+          echo "VERSION = $VERSION"
+        if: always()
+
+      - name: Rename build files
+        run: |
+          mv ./release/x86_64/DSN2Sheet.exe ./release/x86_64/DSN2Sheet-dev-x86_64.exe
+          mv ./release/x86_64/DSN2CSV.exe ./release/x86_64/DSN2CSV-dev-x86_64.exe
+          mv ./release/i686/DSN2Sheet.exe ./release/i686/DSN2Sheet-dev-i686.exe
+          mv ./release/i686/DSN2CSV.exe ./release/i686/DSN2CSV-dev-i686.exe
+          mv ./release/aarch64/DSN2Sheet.exe ./release/aarch64/DSN2Sheet-dev-aarch64.exe
+          mv ./release/aarch64/DSN2CSV.exe ./release/aarch64/DSN2CSV-dev-aarch64.exe
+
+      - name: Create tag
+        id: create_tag
+        run: echo "::set-output name=tag::v${{ env.VERSION }}"
+        env:
+          VERSION: ${{ env.VERSION }}
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag }}
+          release_name: Dev Build ${{ steps.create_tag.outputs.tag }}
+          body: |
+            Automated build from the dev branch.
+          draft: false
+          prerelease: true
+
+      - name: Upload version file as release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/version.txt
+          asset_name: version.txt
+          asset_content_type: text/plain
+
+      - name: Upload DSN2Sheet Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/x86_64/DSN2Sheet-dev-x86_64.exe
+          asset_name: DSN2Sheet-dev-x86_64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload DSN2CSV Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/x86_64/DSN2CSV-dev-x86_64.exe
+          asset_name: DSN2CSV-dev-x86_64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload DSN2Sheet Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/i686/DSN2Sheet-dev-i686.exe
+          asset_name: DSN2Sheet-dev-i686.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload DSN2CSV Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/i686/DSN2CSV-dev-i686.exe
+          asset_name: DSN2CSV-dev-i686.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload DSN2Sheet Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/aarch64/DSN2Sheet-dev-aarch64.exe
+          asset_name: DSN2Sheet-dev-aarch64.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload DSN2CSV Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/aarch64/DSN2CSV-dev-aarch64.exe
+          asset_name: DSN2CSV-dev-aarch64.exe
+          asset_content_type: application/octet-stream

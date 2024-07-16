@@ -1,3 +1,12 @@
+# CLI Data Utilities
+
+## DSN2CSV
+
+Windows utility to query a DSN then create a CSV text file from the results.
+
+Currently under development.
+
+
 # DSN2Sheet
 
 #### Overview
@@ -37,3 +46,4 @@ $ ./program "ODBC_DSN" "query.sql" "sheetID123" "Sheet1!A1" "path/to/custom/goog
 #### Authors
 
 - This program was authored by Blake Glanville.
+

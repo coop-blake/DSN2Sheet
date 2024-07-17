@@ -47,7 +47,7 @@ Query a DSN and create a CSV text file from the results.
 - Access to an ODBC data source with necessary permissions
 - Write access to the output file path
 
-## Usage
+#### Usage
 
 To run the program, use the following command:
 

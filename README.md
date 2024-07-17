@@ -1,17 +1,43 @@
-# CLI Data Utilities
-
+# Windows Command Line Utilities
+Compiled binaries for arm and x86 can be found in release.
 ## DSN2CSV
 
-Windows utility to query a DSN then create a CSV text file from the results.
+Query a DSN and create a CSV text file from the results.
 
-Currently under development.
+#### Requirements
 
+- Access to an ODBC data source with necessary permissions
+- Write access to the output file path
 
-# DSN2Sheet
+## Usage
+
+To run the program, use the following command:
+
+```
+./DSN2CSV.exe <DSN> <sqlFile> <filename> [googleCert]
+
+Arguments:
+   - <DSN>: The Data Source Name for the ODBC connection.
+   - <sqlFile>: The file containing the SQL query to be executed.
+   - <filename>: The file where the data will be written.
+   - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
+```
+#### Examples
+
+```
+$ ./DSN2CSV.exe ODBC_DSN query.sql output.csv
+$ ./DSN2CSV.exe ODBC_DSN query.sql output.txt
+```
+
+#### Notes
+
+- Ensure the ODBC DSN is correctly configured and accessible.
+
+## DSN2Sheet
 
 #### Overview
 
-Fetch data from an ODBC DSN using an SQL query and then upload the results to a specified Google Sheet using Google Sheets API. It takes command-line arguments for configuration.
+Query a DSN and place the results in a Google Sheet.
 
 #### Requirements
 
@@ -21,7 +47,7 @@ Fetch data from an ODBC DSN using an SQL query and then upload the results to a 
 #### Usage
 
 ```
-Usage: ./program <DSN> <sqlFile> <sheetID> <sheetRange> [googleCert]
+./DSN2Sheet.exe <DSN> <sqlFile> <sheetID> <sheetRange> [googleCert]
 
 Arguments:
 - DSN: Data Source Name for the ODBC connection.
@@ -31,11 +57,11 @@ Arguments:
 - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
 ```
 
-#### Example
+#### Examples
 
 ```
-$ ./program "ODBC_DSN" "query.sql" "sheetID123" "Sheet1!A1"
-$ ./program "ODBC_DSN" "query.sql" "sheetID123" "Sheet1!A1" "path/to/custom/googleCert.json"
+$ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 Sheet1!A1
+$ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
 ```
 
 #### Notes

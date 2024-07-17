@@ -130,17 +130,6 @@ jobs:
           name: build-artifact-aarch64-pc-windows-msvc
           path: ./release/aarch64
 
-      - name: Check for version.txt file
-        run: |
-          ls -l ./release/version.txt
-          cat ./release/version.txt || echo "version.txt not found"
-        if: always()
-
-      - name: Print VERSION variable
-        run: |
-          echo "VERSION = $VERSION"
-        if: always()
-
       - name: Rename build files
         run: |
           mv ./release/x86_64/DSN2Sheet.exe ./release/x86_64/DSN2Sheet-dev-x86_64.exe

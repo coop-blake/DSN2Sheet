@@ -1,37 +1,5 @@
 # Windows Command Line Utilities
 Compiled binaries for arm and x86 can be found in release.
-## DSN2CSV
-
-Query a DSN and create a CSV text file from the results.
-
-#### Requirements
-
-- Access to an ODBC data source with necessary permissions
-- Write access to the output file path
-
-## Usage
-
-To run the program, use the following command:
-
-```
-./DSN2CSV.exe <DSN> <sqlFile> <filename> [googleCert]
-
-Arguments:
-   - <DSN>: The Data Source Name for the ODBC connection.
-   - <sqlFile>: The file containing the SQL query to be executed.
-   - <filename>: The file where the data will be written.
-   - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
-```
-#### Examples
-
-```
-$ ./DSN2CSV.exe ODBC_DSN query.sql output.csv
-$ ./DSN2CSV.exe ODBC_DSN query.sql output.txt
-```
-
-#### Notes
-
-- Ensure the ODBC DSN is correctly configured and accessible.
 
 ## DSN2Sheet
 
@@ -69,7 +37,36 @@ $ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/go
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheet.
 
-#### Authors
 
-- This program was authored by Blake Glanville.
+## DSN2CSV
 
+Query a DSN and create a CSV text file from the results.
+
+#### Requirements
+
+- Access to an ODBC data source with necessary permissions
+- Write access to the output file path
+
+## Usage
+
+To run the program, use the following command:
+
+```
+./DSN2CSV.exe <DSN> <sqlFile> <filename> [googleCert]
+
+Arguments:
+   - <DSN>: The Data Source Name for the ODBC connection.
+   - <sqlFile>: The file containing the SQL query to be executed.
+   - <filename>: The file where the data will be written.
+   - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
+```
+#### Examples
+
+```
+$ ./DSN2CSV.exe ODBC_DSN query.sql output.csv
+$ ./DSN2CSV.exe ODBC_DSN query.sql output.txt
+```
+
+#### Notes
+
+- Ensure the ODBC DSN is correctly configured and accessible.

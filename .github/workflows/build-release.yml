@@ -75,37 +75,7 @@ jobs:
         env:
           VERSION: ${{ env.VERSION }}
 
-      # - name: Print VERSION variable
-      #   run: |
-      #     echo "${{steps.extract_version.outputs.VERSION}}"
-      #     echo "VERSION=$version" >> $env:GITHUB_ENV
-      #   if: always()
-      #   env:
-      #     VERSION: ${{ env.VERSION }}
-      - name: Print VERSION variable
-        run: |
-          Write-Host $env:VERSION
-        if: always()
-        env:
-          VERSION: ${{ env.VERSION }}
-
-      - name: Set VERSION if not already set
-        run: |
-          if (-not $env:VERSION) {
-            Write-Host "VERSION=0.1.1" >> $env:GITHUB_ENV
-            echo "VERSION=$version" >> $env:GITHUB_ENV
-          }
-        if: env.VERSION == ''
-        env:
-          VERSION: ${{ env.VERSION }}
-
-      - name: Print VERSION variable
-        run: |
-          Write-Host $env:VERSION
-        if: always()
-        env:
-          VERSION: ${{ env.VERSION }}
-
+    
       - name: Check for version.txt file
         run: |
           Get-ChildItem -Path ./version.txt | Format-Table

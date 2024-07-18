@@ -138,7 +138,7 @@ jobs:
 
       - name: Create tag
         id: create_tag
-        run: echo "::set-output name=tag::pre-${{ env.VERSION }}"
+        run: echo "::set-output name=tag::dev-${{ env.VERSION }}"
         env:
           VERSION: ${{ env.VERSION }}
 

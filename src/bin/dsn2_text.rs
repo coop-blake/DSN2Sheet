@@ -5,7 +5,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if (args.len() != 5) && (args.len() != 4) {
-        println!("Usage: {} <DSN> <sqlFile> <filename> [googleCert]", args[0]);
+        println!("Usage: {} <DSN> <sqlFile> <filename> [separator]", args[0]);
         println!("You entered:> {}", args.join(" "));
         return;
     }
@@ -13,17 +13,17 @@ fn main() {
     let dsn = &args[1];
     let sql_file = &args[2];
     let filename = &args[3];
-    let google_cert = if args.len() > 4 {
-        &args[4]
+    let separator = if args.len() > 4 {
+        &args[4].as_bytes()[0]
     } else {
-        "googleCert.json"
+        &b','    
     };
 
     // Print out the extracted arguments (for testing purposes)
     println!("DSN: {}", dsn);
     println!("SQL File: {}", sql_file);
     println!("Filename: {}", filename);
-    println!("Google Cert: {}", google_cert);
+    println!("Seperator: {}", separator);
 
     println!("Reading SQL File");
 
@@ -43,7 +43,7 @@ fn main() {
     }
 
     tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let query_results = write_data_from_dsn_to_file(dsn, &query, &filename).await;
+        let query_results = write_data_from_dsn_to_file(dsn, &query, &filename, *separator).await;
         match query_results {
             Ok(()) => {
                 println!("Data written to file successfully")

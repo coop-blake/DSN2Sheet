@@ -1,8 +1,5 @@
-name: Build and Pre Release
+name: Build and Release Development Branch
 on:
-  push:
-    branches:
-      - pre
   workflow_dispatch:
 
 jobs:
@@ -22,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: coop-blake/DSN2Sheet
-          ref: pre
+          ref: dev
           path: source
 
       - name: Install Rust

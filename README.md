@@ -38,7 +38,7 @@ $ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/go
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheet.
 
 
-## DSN2CSV
+## DSN2Text
 
 Query a DSN and create a CSV text file from the results.
 
@@ -52,7 +52,7 @@ Query a DSN and create a CSV text file from the results.
 To run the program, use the following command:
 
 ```
-./DSN2CSV.exe <DSN> <sqlFile> <filename> [googleCert]
+./DSN2Text.exe <DSN> <sqlFile> <filename> [googleCert]
 
 Arguments:
    - <DSN>: The Data Source Name for the ODBC connection.
@@ -63,8 +63,8 @@ Arguments:
 #### Examples
 
 ```
-$ ./DSN2CSV.exe ODBC_DSN query.sql output.csv
-$ ./DSN2CSV.exe ODBC_DSN query.sql output.txt
+$ ./DSN2Text.exe ODBC_DSN query.sql output.csv
+$ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 ```
 
 #### Notes

@@ -15,7 +15,7 @@ encoding_rs = "0.8.34"
 
 
 [[bin]]
-name = "DSN2CSV"
+name = "DSN2Text"
 path = "src/bin/dsn2_csv.rs"
 
 [[bin]]

@@ -61,7 +61,7 @@ jobs:
           name: build-artifact-${{ matrix.target }}
           path: |
             source/target/${{ matrix.target }}/release/DSN2Sheet.exe
-            source/target/${{ matrix.target }}/release/DSN2CSV.exe
+            source/target/${{ matrix.target }}/release/DSN2Text.exe
 
       - name: Extract version from Cargo.toml
         id: extract_version
@@ -130,15 +130,15 @@ jobs:
       - name: Rename build files
         run: |
           mv ./release/x86_64/DSN2Sheet.exe ./release/x86_64/DSN2Sheet-dev-x86_64.exe
-          mv ./release/x86_64/DSN2CSV.exe ./release/x86_64/DSN2CSV-dev-x86_64.exe
+          mv ./release/x86_64/DSN2Text.exe ./release/x86_64/DSN2Text-dev-x86_64.exe
           mv ./release/i686/DSN2Sheet.exe ./release/i686/DSN2Sheet-dev-i686.exe
-          mv ./release/i686/DSN2CSV.exe ./release/i686/DSN2CSV-dev-i686.exe
+          mv ./release/i686/DSN2Text.exe ./release/i686/DSN2Text-dev-i686.exe
           mv ./release/aarch64/DSN2Sheet.exe ./release/aarch64/DSN2Sheet-dev-aarch64.exe
-          mv ./release/aarch64/DSN2CSV.exe ./release/aarch64/DSN2CSV-dev-aarch64.exe
+          mv ./release/aarch64/DSN2Text.exe ./release/aarch64/DSN2Text-dev-aarch64.exe
 
       - name: Create tag
         id: create_tag
-        run: echo "::set-output name=tag::dev-${{ env.VERSION }}"
+        run: echo "::set-output name=tag::pre-${{ env.VERSION }}"
         env:
           VERSION: ${{ env.VERSION }}
 
@@ -165,14 +165,14 @@ jobs:
           asset_name: DSN2Sheet-dev-x86_64.exe
           asset_content_type: application/octet-stream
 
-      - name: Upload DSN2CSV Release Assets
+      - name: Upload DSN2Text Release Assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/x86_64/DSN2CSV-dev-x86_64.exe
-          asset_name: DSN2CSV-dev-x86_64.exe
+          asset_path: ./release/x86_64/DSN2Text-dev-x86_64.exe
+          asset_name: DSN2Text-dev-x86_64.exe
           asset_content_type: application/octet-stream
 
       - name: Upload DSN2Sheet Release Assets
@@ -185,14 +185,14 @@ jobs:
           asset_name: DSN2Sheet-dev-i686.exe
           asset_content_type: application/octet-stream
 
-      - name: Upload DSN2CSV Release Assets
+      - name: Upload DSN2Text Release Assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/i686/DSN2CSV-dev-i686.exe
-          asset_name: DSN2CSV-dev-i686.exe
+          asset_path: ./release/i686/DSN2Text-dev-i686.exe
+          asset_name: DSN2Text-dev-i686.exe
           asset_content_type: application/octet-stream
 
       - name: Upload DSN2Sheet Release Assets
@@ -205,12 +205,12 @@ jobs:
           asset_name: DSN2Sheet-dev-aarch64.exe
           asset_content_type: application/octet-stream
 
-      - name: Upload DSN2CSV Release Assets
+      - name: Upload DSN2Text Release Assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/aarch64/DSN2CSV-dev-aarch64.exe
-          asset_name: DSN2CSV-dev-aarch64.exe
+          asset_path: ./release/aarch64/DSN2Text-dev-aarch64.exe
+          asset_name: DSN2Text-dev-aarch64.exe
           asset_content_type: application/octet-stream

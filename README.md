@@ -1,5 +1,5 @@
 # Windows Command Line Utilities
-Compiled binaries for arm and x86 can be found in release.
+Unsigned binaries built for arm and x86 by github actions can be found in release. You can build your own from this repository if unsigned binaries frighten you.
 
 ## DSN2Sheet
 
@@ -52,18 +52,22 @@ Query a DSN and create a CSV text file from the results.
 To run the program, use the following command:
 
 ```
-./DSN2Text.exe <DSN> <sqlFile> <filename> [googleCert]
+
+./DSN2Text.exe <DSN> <sqlFile> <filename> [separator]
 
 Arguments:
    - <DSN>: The Data Source Name for the ODBC connection.
    - <sqlFile>: The file containing the SQL query to be executed.
    - <filename>: The file where the data will be written.
-   - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
+   - separator (optional): The value seperator (Default: Tab).
 ```
 #### Examples
-
+Create a comma separated file from query
 ```
-$ ./DSN2Text.exe ODBC_DSN query.sql output.csv
+$ ./DSN2Text.exe ODBC_DSN query.sql output.csv ","
+```
+Create a tab separated file from query
+```
 $ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 ```
 

@@ -1,6 +1,6 @@
 [package]
 name = "dsn2_sheet"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 [dependencies]
@@ -16,7 +16,8 @@ encoding_rs = "0.8.34"
 
 [[bin]]
 name = "DSN2Text"
-path = "src/bin/dsn2_csv.rs"
+path = "src/bin/dsn2_text.rs"
+
 
 [[bin]]
 name = "DSN2Sheet"

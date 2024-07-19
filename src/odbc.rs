@@ -65,9 +65,12 @@ pub async fn write_data_from_dsn_to_file(
     dsn_name: &String,
     query_string: &String,
     filename: &String,
+    separator: u8,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let file = File::create(filename)?;
-    let mut file_writer = csv::Writer::from_writer(file);
+    //let mut file_writer = csv::Writer::from_writer(file);
+    let mut file_writer = csv::WriterBuilder::new().delimiter(separator).from_writer(file);
+   
     let mut rows_received = 0;
 
     println!("Getting Data from {}", dsn_name);

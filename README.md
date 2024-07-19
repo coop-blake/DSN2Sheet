@@ -1,5 +1,5 @@
 # Windows Command Line Utilities
-Compiled binaries for arm and x86 can be found in release.
+Unsigned binaries built for arm and x86 by github actions can be found in release. You can build your own from this repository if unsigned binaries frighten you.
 
 ## DSN2Sheet
 
@@ -58,7 +58,7 @@ Arguments:
    - <DSN>: The Data Source Name for the ODBC connection.
    - <sqlFile>: The file containing the SQL query to be executed.
    - <filename>: The file where the data will be written.
-   - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
+   - separator (optional): The value seperator (Default: Tab).
 ```
 #### Examples
 

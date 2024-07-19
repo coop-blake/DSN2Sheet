@@ -16,7 +16,7 @@ fn main() {
     let separator = if args.len() > 4 {
         &args[4].as_bytes()[0]
     } else {
-        &b','    
+        &b'\t'    
     };
 
     // Print out the extracted arguments (for testing purposes)

@@ -52,7 +52,7 @@ Query a DSN and create a CSV text file from the results.
 To run the program, use the following command:
 
 ```
-./DSN2Text.exe <DSN> <sqlFile> <filename> [googleCert]
+./DSN2Text.exe <DSN> <sqlFile> <filename> [separator]
 
 Arguments:
    - <DSN>: The Data Source Name for the ODBC connection.
@@ -61,9 +61,12 @@ Arguments:
    - separator (optional): The value seperator (Default: Tab).
 ```
 #### Examples
-
+Create a comma separated file from query
 ```
-$ ./DSN2Text.exe ODBC_DSN query.sql output.csv
+$ ./DSN2Text.exe ODBC_DSN query.sql output.csv ","
+```
+Create a tab separated file from query
+```
 $ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 ```
 

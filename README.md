@@ -52,6 +52,7 @@ Query a DSN and create a CSV text file from the results.
 To run the program, use the following command:
 
 ```
+
 ./DSN2Text.exe <DSN> <sqlFile> <filename> [separator]
 
 Arguments:

@@ -18,6 +18,7 @@ encoding_rs = "0.8.34"
 name = "DSN2Text"
 path = "src/bin/dsn2_text.rs"
 
+
 [[bin]]
 name = "DSN2Sheet"
 path = "src/main.rs"

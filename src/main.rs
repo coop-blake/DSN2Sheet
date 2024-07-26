@@ -1,7 +1,9 @@
 use std::env;
+use dsn2_sheet::args::process_args;
 mod file;
 mod google;
 mod odbc;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -32,6 +34,19 @@ fn main() {
     println!("Google Cert: {}", google_cert);
 
     println!("Reading SQL File");
+
+
+    match process_args(&args) {
+        Ok(args) => {
+            println!("Arguments: {:?}", args);
+            // Proceed with your logic here
+        }
+        Err(err) => {
+            eprintln!("{}", err);
+            std::process::exit(1);
+        }
+    }
+
 
     let mut query = String::new();
     tokio::runtime::Runtime::new().unwrap().block_on(async {

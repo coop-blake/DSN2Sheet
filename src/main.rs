@@ -3,7 +3,6 @@ mod file;
 mod google;
 mod odbc;
 fn main() {
-    //colors::write_blue();
     let args: Vec<String> = env::args().collect();
 
     if (args.len() != 6) && (args.len() != 5) {
@@ -33,7 +32,6 @@ fn main() {
     println!("Google Cert: {}", google_cert);
 
     println!("Reading SQL File");
-    //colors::write_white();
 
     let mut query = String::new();
     tokio::runtime::Runtime::new().unwrap().block_on(async {

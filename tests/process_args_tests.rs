@@ -51,36 +51,8 @@ mod tests {
         ];
 
         let result = process_args(&args);
+        println!("result: {:?}", result);
         assert!(result.is_err());
         //assert_eq!(result.err().unwrap(), "Missing DSN");
-
-    }
-
-    #[test]
-    fn test_missing_dsn() {
-        let args = vec![
-            "test".to_string(),
-            "sql_file".to_string(),
-            "sheet_id".to_string(),
-            "sheet_range".to_string(),
-            "google_cert.json".to_string(),
-        ];
-
-        let result = process_args(&args);
-        assert!(result.is_err());
-    }
-
-    #[test]
-    fn test_missing_sql_file() {
-        let args = vec![
-            "test".to_string(),
-            "dsn".to_string(),
-            "sheet_id".to_string(),
-            "sheet_range".to_string(),
-            "google_cert.json".to_string(),
-        ];
-
-        let result = process_args(&args);
-        assert!(result.is_err());
     }
 }

@@ -4,7 +4,7 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 
 fn write_test_file(content: &str, filename: &str) -> PathBuf {
-    let mut path = Path::new("tests").join("test_files").join(filename);
+    let  path = Path::new("tests").join("test_files").join(filename);
 
     let mut file = File::create(&path).expect("Unable to create test file");
     let _ = file.write_all(content.as_bytes());
@@ -29,6 +29,23 @@ fn test_valid_data() {
         vec![
             ("sheet_id_1".to_string(), "range_1".to_string()),
             ("sheet_id_2".to_string(), "range_2".to_string())
+        ]
+    );
+    std::fs::remove_file(filename).unwrap(); // Cleanup
+}
+#[test]
+fn test_valid_data_with_spaces() {
+    let filename = "test_valid_data.txt";
+    let content = "sheet_id_1@range_1!A2:D\nsheet_id_2@range 2!A2:D\n";
+    let path = write_test_file(content, filename);
+    let filename = path.to_str().unwrap();
+    println!("Path: {:?}", path.to_str().unwrap());
+    let result = read_sheet_data(filename);
+    assert_eq!(
+        result.unwrap(),
+        vec![
+            ("sheet_id_1".to_string(), "range_1!A2:D".to_string()),
+            ("sheet_id_2".to_string(), "range 2!A2:D".to_string())
         ]
     );
     std::fs::remove_file(filename).unwrap(); // Cleanup

@@ -1,4 +1,3 @@
-use std::env::{self, var};
 
 #[derive(Debug)]
 pub struct Args {
@@ -11,14 +10,14 @@ pub struct Args {
 }
 
 pub fn process_args(args: &Vec<String>) -> Result<Args, String> {
-    let argCount = args.len();
+    let arg_count = args.len();
 
-    if argCount < 4 {
+    if arg_count < 4 {
         return Err(format!(
             "Not enough arguments. Usage: {} <DSN> <sqlFile> <sheetID> <sheetRange> [googleCert]",
             args[0]
         ));
-    } else if argCount > 6 {
+    } else if arg_count > 6 {
         return Err(format!(
             "Too many arguments. Usage: {} <DSN> <sqlFile> <sheetID> <sheetRange> [googleCert]",
             args[0]
@@ -32,7 +31,7 @@ pub fn process_args(args: &Vec<String>) -> Result<Args, String> {
     if sheet_id.as_ref().unwrap().ends_with(".txt") {
         let targets_file = sheet_id.clone();
 
-        let google_cert = if argCount == 5 {
+        let google_cert = if arg_count == 5 {
             &args[4]
         } else {
             "googleCert.json"
@@ -47,7 +46,7 @@ pub fn process_args(args: &Vec<String>) -> Result<Args, String> {
         });
     } else {
         let sheet_range = &args[4];
-        let google_cert = if argCount == 6 {
+        let google_cert = if arg_count == 6 {
             &args[5]
         } else {
             "googleCert.json"

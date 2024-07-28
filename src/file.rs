@@ -33,11 +33,11 @@ impl From<io::Error> for MyError {
 
 pub fn read_sheet_data(filename: &str) -> Result<Vec<(String, String)>, MyError> {
     let path = Path::new(filename);
-    println!(
-        "Path: {:?} Filename: {:?}",
-        path.to_str().unwrap(),
-        filename
-    );
+    // println!(
+    //     "Path: {:?} Filename: {:?}",
+    //     path.to_str().unwrap(),
+    //     filename
+    // );
 
     let file = File::open(&path)?;
 

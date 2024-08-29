@@ -24,9 +24,9 @@ jobs:
       - name: Convert Markdown to HTML
         run: |
           mkdir -p public
-          pandoc documentation/index.md -s --template documentation/html/index.html -o public/index.html     
-          pandoc documentation/dsn2Sheet.md -s --template documentation/html/index.html -o public/dsn2Sheet.html      
-          pandoc documentation/dsn2Text.md -s --template documentation/html/index.html -o public/dsn2Text.html     
+          pandoc documentation/index.md -s --template documentation/html/index.html -o public/index.html --metadata=link-citations=true    
+          pandoc documentation/dsn2Sheet.md -s --template documentation/html/index.html -o public/dsn2Sheet.html  --metadata=link-citations=true   
+          pandoc documentation/dsn2Text.md -s --template documentation/html/index.html -o public/dsn2Text.html  --metadata=link-citations=true   
 
 
       - name: Copy CSS

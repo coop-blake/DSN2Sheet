@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title></title>
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h2 id="dsn2sheet">DSN2Sheet</h2>
+        <h4 id="overview">Overview</h4>
+        <p>Query a DSN and place the results in a Google Sheet.</p>
+        <h4 id="requirements">Requirements</h4>
+        <ul>
+        <li>Access to an ODBC data source with necessary permissions</li>
+        <li>Google Service Account credentials JSON file (<code>googleCert.json</code> by default)</li>
+        </ul>
+        <h4 id="usage">Usage</h4>
+        <pre><code>./DSN2Sheet.exe &lt;DSN&gt; &lt;sqlFile&gt; &lt;sheetID&gt; &lt;sheetRange&gt; [googleCert]
+
+        Arguments:
+        - DSN: Data Source Name for the ODBC connection.
+        - sqlFile: Path to the SQL file containing the query.
+        - sheetID: ID of the Google Sheet where data will be uploaded.
+        - sheetRange: Range within the Google Sheet where data will be placed (e.g., &quot;Sheet1!A1&quot;).
+        - googleCert (optional): Path to the Google Service Account credentials JSON file (default: &quot;googleCert.json&quot;).</code></pre>
+        <h4 id="examples">Examples</h4>
+        <pre><code>$ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 Sheet1!A1
+        $ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 &quot;Sheet one!A1&quot; path/to/custom/googleCert.json</code></pre>
+        <h4 id="notes">Notes</h4>
+        <ul>
+        <li>Ensure the ODBC DSN is correctly configured and accessible.</li>
+        <li>The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheet.</li>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Blake Glanville</p>
+    </footer>
+</body>
+</html>

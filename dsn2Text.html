@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title></title>
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h2 id="dsn2text">DSN2Text</h2>
+        <p>Query a DSN and create a CSV text file from the results.</p>
+        <h4 id="requirements">Requirements</h4>
+        <ul>
+        <li>Access to an ODBC data source with necessary permissions</li>
+        <li>Write access to the output file path</li>
+        </ul>
+        <h4 id="usage">Usage</h4>
+        <p>To run the program, use the following command:</p>
+        <pre><code>
+        ./DSN2Text.exe &lt;DSN&gt; &lt;sqlFile&gt; &lt;filename&gt; [separator]
+
+        Arguments:
+           - &lt;DSN&gt;: The Data Source Name for the ODBC connection.
+           - &lt;sqlFile&gt;: The file containing the SQL query to be executed.
+           - &lt;filename&gt;: The file where the data will be written.
+           - separator (optional): The value seperator (Default: Tab).</code></pre>
+        <h4 id="examples">Examples</h4>
+        <p>Create a comma separated file from query</p>
+        <pre><code>$ ./DSN2Text.exe ODBC_DSN query.sql output.csv &quot;,&quot;</code></pre>
+        <p>Create a tab separated file from query</p>
+        <pre><code>$ ./DSN2Text.exe ODBC_DSN query.sql output.txt</code></pre>
+        <h4 id="notes">Notes</h4>
+        <ul>
+        <li>Ensure the ODBC DSN is correctly configured and accessible.</li>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Blake Glanville</p>
+    </footer>
+</body>
+</html>

@@ -25,7 +25,7 @@ Arguments:
 #### Examples
 
 ```
-$ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 Sheet1!A1
+$ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 Sheet1!A1  
 $ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
 ```
 

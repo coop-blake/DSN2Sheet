@@ -1,6 +1,8 @@
 # Windows Command Line Utilities
 
-Unsigned binaries built by github actions can be found in release. You can also build your own from this repository after [installing rust](https://www.rust-lang.org/tools/install)
+Unsigned binaries built by github actions can be found in [release](https://github.com/coop-blake/DSN2Sheet/releases).  
+
+You can also build your own from the [repository](https://github.com/coop-blake/DSN2Sheet) after [installing rust](https://www.rust-lang.org/tools/install) with the following command.
 
 ```
 cargo build --release

@@ -17,13 +17,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
+    
+      - name: Install pandoc
+        run: sudo apt-get install -y pandoc
+        
+      - name: Convert Markdown to HTML
+        run: |
+          mkdir -p public
+          pandoc documentation/*.md -s -o public/index.html     
       
-      - name: Install dependencies
-        run: npm install -g markdown-to-html
-
-      - name: Build static HTML
-        run: markdown-to-html -o public documentation/
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

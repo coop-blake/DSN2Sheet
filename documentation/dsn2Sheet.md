@@ -33,3 +33,6 @@ $ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/go
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheet.
+
+
+[DSN2Text](dsn2Text.html) - Save DSN Query as text file

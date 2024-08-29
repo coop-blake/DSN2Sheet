@@ -1,5 +1,5 @@
 # Windows Command Line Utilities
-A set of command line utilities for moving data from an ODBC Data source to either a remote Google sheet or local text file.
+A set of command line tools for querying an ODBC data source and exporting the results to a Google Sheet or saving them in a local text file.  
 
 Unsigned binaries built by github actions can be found in [release](https://github.com/coop-blake/DSN2Sheet/releases).  
 

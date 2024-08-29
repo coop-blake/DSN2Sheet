@@ -26,6 +26,10 @@ jobs:
           mkdir -p public
           pandoc documentation/*.md -s --template documentation/html/index.html -o public/index.html     
       
+
+      - name: Convert Markdown to HTML
+        run: cp documentation/index.css public/index.css
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

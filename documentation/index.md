@@ -11,5 +11,5 @@ cargo build --release
 
 This will create the two programs outlined below
 
-[DSN2Sheet](dsn2Sheet.md) - Push a DSN Query to a Google Sheet
+[DSN2Sheet](dsn2Sheet.md) - Push a DSN Query to a Google Sheet  
 [DSN2Text](dsn2Text.md) - Save DSN Query as text file

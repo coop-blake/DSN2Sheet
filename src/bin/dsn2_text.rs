@@ -16,10 +16,12 @@ fn main() {
     let separator = if args.len() > 4 {
         &args[4].as_bytes()[0]
     } else {
-        &b'\t'    
+        &b'\t'
     };
 
     // Print out the extracted arguments (for testing purposes)
+    println!("DSN2Text");
+
     println!("DSN: {}", dsn);
     println!("SQL File: {}", sql_file);
     println!("Filename: {}", filename);

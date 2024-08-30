@@ -407,6 +407,7 @@ version = "0.1.2"
 dependencies = [
  "csv",
  "encoding_rs",
+ "futures",
  "google-authenticator",
  "google-sheets4",
  "odbc-api",

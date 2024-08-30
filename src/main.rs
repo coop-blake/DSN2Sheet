@@ -1,85 +1,72 @@
+use dsn2_sheet::{args::process_args, file::read_sheet_data};
 use std::env;
 mod file;
 mod google;
 mod odbc;
-fn main() {
-    //colors::write_blue();
+
+#[tokio::main]
+async fn main() {
     let args: Vec<String> = env::args().collect();
-
-    if (args.len() != 6) && (args.len() != 5) {
-        println!(
-            "Usage: {} <DSN> <sqlFile> <sheetID> <sheetRange> [googleCert]",
-            args[0]
-        );
-        println!("You entered:> {}", args.join(" "));
-        return;
-    }
-
-    let dsn = &args[1];
-    let sql_file = &args[2];
-    let sheet_id = &args[3];
-    let sheet_range = &args[4];
-    let google_cert = if args.len() > 5 {
-        &args[5]
-    } else {
-        "googleCert.json"
-    };
-
-    // Print out the extracted arguments (for testing purposes)
-    println!("DSN: {}", dsn);
-    println!("SQL File: {}", sql_file);
-    println!("Sheet ID: {}", sheet_id);
-    println!("Sheet Range: {}", sheet_range);
-    println!("Google Cert: {}", google_cert);
-
-    println!("Reading SQL File");
-    //colors::write_white();
-
-    let mut query = String::new();
-    tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let sql_results = file::get_string_from_file(sql_file);
-        match sql_results {
-            Ok(results) => {
-                query = results;
+    match process_args(&args) {
+        Ok(args) => {
+            let dsn = args.dsn;
+            let sql_file = args.sql_file;
+            println!("Reading SQL File");
+            match file::get_string_from_file(&sql_file) {
+                Ok(query) => {
+                    println!("Executing Query");
+                    match odbc::get_data_from_dsn(&dsn, &query).await {
+                        Ok(data_for_google) => {
+                            println!("Query executed successfully");
+                            match args.targets_file {
+                                Some(ref targets_file) => {
+                                    println!("Uploading query result to targets");
+                                    match read_sheet_data(targets_file) {
+                                        Ok(targets) => {
+                                            let _ = google::send_to_multiple_targets(
+                                                args.google_cert,
+                                                data_for_google,
+                                                targets,
+                                            )
+                                            .await;
+                                        }
+                                        Err(e) => {
+                                            eprintln!("Error: {:?}", e)
+                                        }
+                                    }
+                                }
+                                None => {
+                                    println!("Uploading to Sheet");
+                                    match (&args.sheet_id, &args.sheet_range) {
+                                        (Some(sheet_id), Some(sheet_range)) => {
+                                            let target =
+                                               // vec![(sheet_id.clone(), sheet_range.clone())];
+                                             google::send_data_to_google_sheet(
+                                                &args.google_cert,
+                                                data_for_google,
+                                                &sheet_id, &sheet_range
+                                            )
+                                            .await;
+                                        }
+                                        _ => {
+                                            eprintln!("Unexpected arguments:\n\t sheet_id:{:?} \n\tsheet_range:{:?}", args.sheet_id, args.sheet_range)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //Not able to get data from DSN
+                        Err(e) => eprintln!("Error: {}", e),
+                    }
+                }
+                //Not able to get sql query from file
+                Err(e) => eprintln!("Error: {}", e),
             }
-            Err(e) => eprintln!("Error: {}", e),
         }
-    });
-    if query.is_empty() {
-        eprintln!("Query is empty. Exiting.");
-        return;
-    }
-    let mut data_for_google: Option<Vec<Vec<String>>> = None;
-
-    tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let query_results = odbc::get_data_from_dsn(dsn, &query).await;
-        match query_results {
-            Ok(results) => {
-                data_for_google = Some(results);
-                println!("Query executed successfully")
-            }
-            Err(e) => eprintln!("Error: {}", e),
+        Err(err) => {
+            //Argument Error
+            eprintln!("{}", err);
+            std::process::exit(1);
         }
-    });
-
-    if data_for_google.is_some() {
-        tokio::runtime::Runtime::new().unwrap().block_on(async {
-            println!("Preparing to send data to Google Sheets");
-            if let Err(err) = google::send_data_to_google_sheet(
-                &google_cert,
-                data_for_google.unwrap(),
-                &sheet_id,
-                &sheet_range,
-            )
-            .await
-            {
-                eprintln!("Error: {}", err)
-            }
-        });
-    } else {
-        eprintln!("No data received from DSN. Exiting.");
-        return;
     }
-
-    println!("Ending");
 }

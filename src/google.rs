@@ -7,6 +7,47 @@ use sheets4::oauth2::{self};
 use sheets4::Sheets;
 use sheets4::{hyper, hyper_rustls};
 
+use futures::future::join_all;
+use std::sync::Arc;
+use tokio::sync::Semaphore;
+use tokio::task;
+
+pub async fn send_to_multiple_targets(
+    google_cert: String,
+    data_for_google: Vec<Vec<String>>,
+    targets: Vec<(String, String)>,
+) -> Result<(), String> {
+    let semaphore = Arc::new(Semaphore::new(1));
+    let mut tasks = vec![];
+    for (sheet_id, sheet_range) in targets {
+        // println!("Preparing to send to: {} @ {}", sheet_id, sheet_range);
+        let semaphore = semaphore.clone();
+        let google_cert = google_cert.clone();
+        let data_for_google = data_for_google.clone();
+        let task = task::spawn(async move {
+            let permit = semaphore.acquire().await.unwrap();
+            //  println!("Sending: {} @ {}", sheet_id, sheet_range);
+            if let Err(err) = send_data_to_google_sheet(
+                &google_cert,
+                data_for_google.clone(),
+                &sheet_id,
+                &sheet_range,
+            )
+            .await
+            {
+                eprintln!("Error: {}", err)
+            }
+            // println!("Sent: {} @ {}", sheet_id, sheet_range);
+
+            drop(permit); // Release the permit when done
+        });
+        tasks.push(task);
+    }
+
+    let _ = join_all(tasks).await;
+    return Ok(());
+}
+
 pub async fn send_data_to_google_sheet(
     credentials_path: &str,
     data: Vec<Vec<String>>,
@@ -80,10 +121,37 @@ pub async fn send_data_to_google_sheet(
         .doit()
         .await?;
 
+    //get sheet name from id
+    let sheet = hub
+        .spreadsheets()
+        .get(spreadsheet_id)
+        .doit()
+        .await?
+        .1
+        .sheets
+        .unwrap();
+
+    let sheet_name = sheet
+        .get(0)
+        .unwrap()
+        .properties
+        .as_ref()
+        .unwrap()
+        .title
+        .as_ref()
+        .unwrap();
+    //Get Spreedsheet document title
+    let title = hub.spreadsheets().get(spreadsheet_id).doit().await?;
+    let title = title.1.properties.as_ref().unwrap().title.as_ref().unwrap();
+
     //if write_result is successful, print the range where the data was written
     if let Some(updated_range) = write_result.1.responses {
         if let Some(returned_range) = &updated_range.get(0).unwrap().updated_range {
-            println!("Data written to range: {}", returned_range);
+            println!(
+                "Data written to {}; {} at range {}",
+                title, sheet_name, returned_range
+            );
+
             if returned_range
                 .to_lowercase()
                 .contains(&range.to_lowercase())
@@ -92,7 +160,7 @@ pub async fn send_data_to_google_sheet(
                 Ok(())
             } else {
                 println!("Range Does Not Match Input: {}", range);
-                Err("Data was not written to the expected range".into())
+                Ok(())
             }
         } else {
             Err("Data was not written to the sheet".into())

@@ -40,5 +40,7 @@ $ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 
+Unsigned binaries built by github actions can be found in [releases](https://github.com/coop-blake/DSN2Sheet/releases/tag/v0.1.2).  
+
 
 [DSN2Sheet](dsn2Sheet.html) - Push a DSN Query to a Google Sheet  

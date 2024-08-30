@@ -58,6 +58,7 @@ Each line of your _targets.txt_ should contain a Sheet ID and range, separated b
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.
 
+Unsigned binaries built by github actions can be found in [releases](https://github.com/coop-blake/DSN2Sheet/releases/tag/v0.1.2).  
 
 
 [DSN2Text](dsn2Text.html) - Save DSN Query as text file

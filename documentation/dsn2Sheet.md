@@ -30,14 +30,14 @@ Arguments:
 **Single Target**
 
 ```
-C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1  
+C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1
 C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
 ```
 
 **Multiple Targets**
 
 ```
-C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql targets.txt  
+C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql targets.txt
 C:\DSN2Sheet> DSN2Sheet.exe ODBC_DSN query.sql targets.txt path\to\custom\googleCert.json
 ```
 

@@ -1,5 +1,12 @@
 # Windows Command Line Utilities
-Unsigned binaries built for arm and x86 by github actions can be found in release. You can build your own from this repository if unsigned binaries frighten you.
+
+Unsigned binaries built by github actions can be found in release. You can also build your own from this repository after [installing rust](https://www.rust-lang.org/tools/install)
+
+```
+cargo build --release
+```
+
+This will create the two programs outlined below
 
 ## DSN2Sheet
 
@@ -37,7 +44,6 @@ $ ./DSN2Sheet.exe ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/go
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheet.
 
-
 ## DSN2Text
 
 Query a DSN and create a CSV text file from the results.
@@ -61,12 +67,17 @@ Arguments:
    - <filename>: The file where the data will be written.
    - separator (optional): The value seperator (Default: Tab).
 ```
+
 #### Examples
+
 Create a comma separated file from query
+
 ```
 $ ./DSN2Text.exe ODBC_DSN query.sql output.csv ","
 ```
+
 Create a tab separated file from query
+
 ```
 $ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 ```

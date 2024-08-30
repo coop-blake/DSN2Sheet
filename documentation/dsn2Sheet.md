@@ -15,6 +15,7 @@ You can invoke DSN2Sheet be providing either a single target or a file containin
 ```
 ./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert]
 
+
 Arguments:
 - DSN: Data Source Name for the ODBC connection.
 - sqlFile: Path to the SQL file containing the query.
@@ -25,6 +26,7 @@ Arguments:
 ```
 
 #### Examples
+
 **Single Target**
 
 ```
@@ -55,6 +57,7 @@ Each line of your _targets.txt_ should contain a Sheet ID and range, separated b
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.
+
 
 
 [DSN2Text](dsn2Text.html) - Save DSN Query as text file

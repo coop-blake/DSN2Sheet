@@ -24,18 +24,24 @@ fn test_valid_data() {
     let filename = path.to_str().unwrap();
     println!("Path: {:?}", path.to_str().unwrap());
     let result = read_sheet_data(filename);
-    assert_eq!(
-        result.unwrap(),
-        vec![
-            ("sheet_id_1".to_string(), "range_1".to_string()),
-            ("sheet_id_2".to_string(), "range_2".to_string())
-        ]
-    );
+    let actual = result.unwrap();
+    let expected = vec![
+        ("sheet_id_1".to_string(), "range_1".to_string()),
+        ("sheet_id_2".to_string(), "range_2".to_string())
+    ];
+    
+    // Check that the length of actual and expected are the same
+    assert_eq!(actual.len(), expected.len(), "The number of elements does not match");
+    
+    // Assert each pair individually
+    for (i, (expected_item, actual_item)) in expected.into_iter().zip(actual).enumerate() {
+        assert_eq!(expected_item, actual_item, "Mismatch at index {}", i);
+    }
     std::fs::remove_file(filename).unwrap(); // Cleanup
 }
 #[test]
 fn test_valid_data_with_spaces() {
-    let filename = "test_valid_data.txt";
+    let filename = "test_valid_data_with_spaces.txt";
     let content = "sheet_id_1@range_1!A2:D\nsheet_id_2@range 2!A2:D\n";
     let path = write_test_file(content, filename);
     let filename = path.to_str().unwrap();

@@ -1,7 +1,9 @@
-# DSN2Sheets
+# Windows Command Line Utilities
+A set of command line tools for querying an ODBC data source and exporting the results to a Google Sheet or saving them in a local text file.  
 
-## Values
+Unsigned binaries built by github actions can be found in [releases](https://github.com/coop-blake/DSN2Sheet/releases).  
 
-### range
+You can also build your own from the [repository](https://github.com/coop-blake/DSN2Sheet)
 
-This is the range that is sent as a both a clear range and the input range for the data received
+[DSN2Sheet](dsn2Sheet.html) - Push a DSN Query to a Google Sheet  
+[DSN2Text](dsn2Text.html) - Save DSN Query as text file

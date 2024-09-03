@@ -13,7 +13,7 @@ Query a DSN and place the results in a Google Sheet.
 
 You can invoke DSN2Sheet be providing either a single target or a file containing multiple targets.
 
-  
+ ``` 
 ./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert]
 
 
@@ -24,14 +24,14 @@ Arguments:
 - sheetRange: Range within the Google Sheet where data will be placed (e.g., "Sheet1!A1").
 - targetsFile: Path to a text file containing multiple sheet IDs and ranges. If specified, `sheetID` and `sheetRange` are not required.
 - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
-
+```
 
 #### Examples
 
 **Single Target**
 
-C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1  
-C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
+    C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1  
+    C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
 
 
 **Multiple Targets**

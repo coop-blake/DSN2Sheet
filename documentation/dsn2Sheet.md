@@ -7,12 +7,13 @@ Query a DSN and place the results in a Google Sheet.
 #### Requirements
 
 - Access to an ODBC data source with necessary permissions
-- Google Service Account credentials JSON file (`googleCert.json` by default)
+- Google Service Account credentials JSON file (_googleCert.json_ by default)
 
 #### Usage
 
 You can invoke DSN2Sheet be providing either a single target or a file containing multiple targets.
 ```
+  
 ./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert]
 
 

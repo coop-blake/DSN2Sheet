@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p public
           pandoc documentation/index.md -s --no-highlight --template documentation/html/index.html -o public/index.html     
-          pandoc documentation/dsn2Sheet.md -s --no-highlight --template documentation/html/index.html -o public/dsn2Sheet.html     
+          pandoc documentation/dsn2Sheet.md -p -s --no-highlight --template documentation/html/index.html -o public/dsn2Sheet.html     
           pandoc documentation/dsn2Text.md -s --no-highlight --template documentation/html/index.html -o public/dsn2Text.html     
 
 

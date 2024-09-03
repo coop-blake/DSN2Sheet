@@ -32,6 +32,8 @@ jobs:
           sed -i 's/^\s*<span/<span/g' "public/dsn2Sheet.html"     
           sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Sheet.html"   
           pandoc documentation/dsn2Text.md -s --no-highlight --template documentation/html/index.html -o public/dsn2Text.html     
+          sed -i 's/^\s*<span/<span/g' "public/dsn2Text.html"     
+          sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Text.html"  
 
 
       - name: Copy CSS

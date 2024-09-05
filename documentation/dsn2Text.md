@@ -19,7 +19,6 @@ Query a DSN and create a CSV text file from the results.
 To run the program, use the following command:
 
 ```
-
 ./DSN2Text.exe <DSN> <sqlFile> <filename> [separator]
 
 Arguments:
@@ -48,3 +47,4 @@ $ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 - Ensure the ODBC DSN is correctly configured and accessible.
 
 [DSN2Sheet](dsn2Sheet.html) - Push a DSN Query to a Google Sheet
+

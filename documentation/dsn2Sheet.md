@@ -12,13 +12,15 @@ Query a DSN and place the results in a Google Sheet.
 #### Requirements
 
 - Access to an ODBC data source with necessary permissions
-- Google Service Account credentials JSON file (`googleCert.json` by default)
+- Google Service Account credentials JSON file (_googleCert.json_ by default)
 
 #### Usage
 
 You can invoke DSN2Sheet be providing either a single target or a file containing multiple targets.
 
-```
+
+ ``` 
+ 
 ./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert]
 
 
@@ -47,9 +49,11 @@ C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql targets.txt
 C:\DSN2Sheet> DSN2Sheet.exe ODBC_DSN query.sql targets.txt path\to\custom\googleCert.json
 ```
 
+
 Each line of your _targets.txt_ should contain a Sheet ID and range, separated by an "@" symbol.
 
 **_example targets.txt_**
+
 
 ```
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D11
@@ -58,11 +62,12 @@ Each line of your _targets.txt_ should contain a Sheet ID and range, separated b
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D17
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D19
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D21
-```
+
 
 #### Notes
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.
+
 
 [DSN2Text](dsn2Text.html) - Save DSN Query as text file

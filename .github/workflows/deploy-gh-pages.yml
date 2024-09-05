@@ -20,13 +20,20 @@ jobs:
     
       - name: Install pandoc
         run: sudo apt-get install -y pandoc
+    
+      - name: Install sed
+        run: sudo apt-get install -y sed
 
       - name: Convert Markdown to HTML
         run: |
           mkdir -p public
-          pandoc documentation/index.md -s --template documentation/html/index.html -o public/index.html     
-          pandoc documentation/dsn2Sheet.md -s --template documentation/html/index.html -o public/dsn2Sheet.html     
-          pandoc documentation/dsn2Text.md -s --template documentation/html/index.html -o public/dsn2Text.html     
+          pandoc documentation/index.md -s --no-highlight --template documentation/html/index.html -o public/index.html
+          pandoc documentation/dsn2Sheet.md -p -s --no-highlight --template documentation/html/index.html -o public/dsn2Sheet.html   
+          sed -i 's/^\s*<span/<span/g' "public/dsn2Sheet.html"     
+          sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Sheet.html"   
+          pandoc documentation/dsn2Text.md -s --no-highlight --template documentation/html/index.html -o public/dsn2Text.html     
+          sed -i 's/^\s*<span/<span/g' "public/dsn2Text.html"     
+          sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Text.html"  
 
 
       - name: Copy CSS

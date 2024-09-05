@@ -6,9 +6,34 @@ on:
       - main
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust environment
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install cargo2junit
+        run: cargo install cargo2junit
+
+      - name: Run tests and generate JUnit report
+        run: cargo test --no-fail-fast -- --format=json | cargo2junit > tests.xml
+
+      - name: Upload test results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: tests.xml
+
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -16,11 +41,11 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-    
+          node-version: "20.x"
+
       - name: Install pandoc
         run: sudo apt-get install -y pandoc
-    
+
       - name: Install sed
         run: sudo apt-get install -y sed
 
@@ -33,11 +58,15 @@ jobs:
           sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Sheet.html"   
           pandoc documentation/dsn2Text.md -s --no-highlight --template documentation/html/index.html -o public/dsn2Text.html     
           sed -i 's/^\s*<span/<span/g' "public/dsn2Text.html"     
-          sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Text.html"  
-
+          sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Text.html"
 
       - name: Copy CSS
         run: cp documentation/html/index.css public/index.css
+
+      - name: Include Test Results in Documentation
+        run: |
+          cp tests.xml public/
+          pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

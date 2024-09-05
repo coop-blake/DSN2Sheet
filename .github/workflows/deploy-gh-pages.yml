@@ -25,7 +25,7 @@ jobs:
       - name: Run integration tests and generate JUnit report
         run: |
           # Run only integration tests from the `tests` directory
-          cargo test --test > test_output.log || true
+          cargo test --test * > test_output.log 
 
           # Convert test results to JUnit XML
           cargo2junit < test_output.log > tests.xml

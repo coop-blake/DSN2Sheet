@@ -2,7 +2,7 @@
 
 A set of command line tools for querying an ODBC data source and exporting the results to a Google Sheet or saving them in a local text file.
 
-Unsigned binaries built by github actions can be found in [releases](https://github.com/coop-blake/DSN2Sheet/releases/tag/v0.1.2).
+Unsigned binaries built by github actions can be found in [releases](https://github.com/coop-blake/DSN2Sheet/releases/tag/v0.1.2) and links below.
 
 You can also build your own from the [repository](https://github.com/coop-blake/DSN2Sheet)
 

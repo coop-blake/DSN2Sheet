@@ -59,13 +59,11 @@ Each line of your _targets.txt_ should contain a Sheet ID and range, separated b
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D17
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D19
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D21
-
+```
 
 #### Notes
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.
 
-
 [DSN2Text](dsn2Text.html) - Save DSN Query as text file
-```

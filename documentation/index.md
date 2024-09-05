@@ -1,4 +1,4 @@
-# Blake's Windows Command Line Utilities
+# Blake's Command Line Utilities for Windows
 
 A set of command line tools for querying an ODBC data source and exporting the results to a Google Sheet or saving them in a local text file.
 

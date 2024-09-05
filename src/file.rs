@@ -18,6 +18,7 @@ pub fn get_string_from_file(file_name: &str) -> Result<String, Box<dyn std::erro
     Ok(result)
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 pub enum MyError {
     IoError(io::Error),
@@ -30,7 +31,7 @@ impl From<io::Error> for MyError {
         MyError::IoError(error)
     }
 }
-
+#[allow(dead_code)]
 pub fn read_sheet_data(filename: &str) -> Result<Vec<(String, String)>, MyError> {
     let path = Path::new(filename);
     // println!(

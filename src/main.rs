@@ -23,12 +23,16 @@ async fn main() {
                                     println!("Uploading query result to targets");
                                     match read_sheet_data(targets_file) {
                                         Ok(targets) => {
-                                            let _ = google::send_to_multiple_targets(
+                                            match google::send_to_multiple_targets(
                                                 args.google_cert,
                                                 data_for_google,
                                                 targets,
                                             )
-                                            .await;
+                                            .await
+                                            {
+                                                Ok(_) => println!("Data uploaded to Google Sheet"),
+                                                Err(e) => eprintln!("Error: {:?}", e),
+                                            }
                                         }
                                         Err(e) => {
                                             eprintln!("Error: {:?}", e)
@@ -39,14 +43,17 @@ async fn main() {
                                     println!("Uploading to Sheet");
                                     match (&args.sheet_id, &args.sheet_range) {
                                         (Some(sheet_id), Some(sheet_range)) => {
-                                            let target =
-                                               // vec![(sheet_id.clone(), sheet_range.clone())];
-                                             google::send_data_to_google_sheet(
+                                            match google::send_data_to_google_sheet(
                                                 &args.google_cert,
                                                 data_for_google,
-                                                &sheet_id, &sheet_range
+                                                &sheet_id,
+                                                &sheet_range,
                                             )
-                                            .await;
+                                            .await
+                                            {
+                                                Ok(_) => println!("Data uploaded to Google Sheet"),
+                                                Err(e) => eprintln!("Error: {:?}", e),
+                                            }
                                         }
                                         _ => {
                                             eprintln!("Unexpected arguments:\n\t sheet_id:{:?} \n\tsheet_range:{:?}", args.sheet_id, args.sheet_range)

@@ -1,10 +1,10 @@
 # Windows Command Line Utilities
 
+![CI](https://github.com/coop-blake/DSN2Sheet/actions/workflows/test-main.yml/badge.svg)
+
 Links to binaries compiled by github actions can be found on the [documentation page](https://coop-blake.github.io/DSN2Sheet/)
 
 You can also build your own from this repository after [installing rust](https://www.rust-lang.org/tools/install)
-
-![CI](https://github.com/coop-blake/DSN2Sheet/actions/workflows/test-main.yml/badge.svg)
 
 ```
 cargo build --release

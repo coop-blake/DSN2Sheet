@@ -75,8 +75,8 @@ jobs:
 
       - name: Include Test Results in Documentation
         run: |
-          # cp tests.xml public/
-          pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
+          cp tests.xml public/
+          #pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

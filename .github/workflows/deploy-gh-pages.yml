@@ -28,7 +28,7 @@ jobs:
           cargo test -- --nocapture > test_output.log || true
 
           # Convert test results to JUnit XML
-          cargo2junit < test_output.log > tests.xml
+          cargo2junit < test_output.log > tests.xml || true
 
       - name: Upload test results as artifact
         uses: actions/upload-artifact@v3

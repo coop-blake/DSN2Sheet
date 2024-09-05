@@ -45,6 +45,11 @@ jobs:
     needs: test
 
     steps:
+     - uses: actions/download-artifact@v3
+        with:
+          name: test-results
+          path: public/tests.xml
+          
       - name: Include Test Results in Documentation
         run: |
           ls -l tests.xml || true
@@ -77,10 +82,7 @@ jobs:
       - name: Copy CSS
         run: cp documentation/html/index.css public/index.css
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: test-results
-          path: public/tests.xml
+     
 
       - name: Include Test Results in Documentation
         run: |

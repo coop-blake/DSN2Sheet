@@ -2,7 +2,7 @@
 
 Windows Command Line Utility  
 _(Pre-Release v0.1.2)_  
-Intel [32-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Text-dev-i686.exe) [64-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Text-dev-x86_64.exe)  
+Intel [32-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Text-dev-i686.exe) | [64-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Text-dev-x86_64.exe)  
 Arm [64-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Text-dev-aarch64.exe)
 
 #### Overview

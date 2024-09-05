@@ -51,11 +51,8 @@ jobs:
 
       - name: Include Test Results in Documentation
         run: |
-          ls -l tests.xml || true
-          cat tests.xml || true
           mkdir -p public
-          cp tests.xml public/tests.xml
-          #pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
+          pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 
       - name: Set up Node.js environment
         uses: actions/setup-node@v3
@@ -81,13 +78,6 @@ jobs:
 
       - name: Copy CSS
         run: cp documentation/html/index.css public/index.css
-
-      - name: Include Test Results in Documentation
-        run: |
-          ls -l tests.xml || true
-          cat tests.xml || true
-          cp tests.xml public/
-          #pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

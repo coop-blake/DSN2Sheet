@@ -45,8 +45,12 @@ jobs:
     needs: test
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Include Test Results in Documentation
+        run: |
+          ls -l tests.xml || true
+          cat tests.xml || true
+          cp tests.xml public/
+          #pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 
       - name: Set up Node.js environment
         uses: actions/setup-node@v3

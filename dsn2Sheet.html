@@ -12,8 +12,8 @@
  </header>
  <main>
  <h2 id="dsn2sheet">DSN2Sheet</h2>
- <p>Windows Command Line Utility</p>
- <p>Intel <a href="https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-i686.exe">32-bit</a> <a href="https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-i686.exes">64-bit</a><br />
+ <p>Windows Command Line Utility <em>(Pre-Release v0.1.2)</em><br />
+Intel <a href="https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-i686.exe">32-bit</a> <a href="https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-i686.exes">64-bit</a><br />
 Arm <a href="https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-aarch64.exes">64-bit</a></p>
  <h4 id="overview">Overview</h4>
  <p>Query a DSN and place the results in a Google Sheet.</p>
@@ -44,16 +44,30 @@ C:\DSN2Sheet&gt; DSN2Sheet ODBC_DSN query.sql sheetID123 &quot;Sheet one!A1&quot
 C:\DSN2Sheet&gt; DSN2Sheet.exe ODBC_DSN query.sql targets.txt path\to\custom\googleCert.json</code></pre>
  <p>Each line of your <em>targets.txt</em> should contain a Sheet ID and range, separated by an “@” symbol.</p>
  <p><strong><em>example targets.txt</em></strong></p>
- <p>``` 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@‘Test 2’!D11 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@‘Test 2’!D13 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@‘Test 2’!D15 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@‘Test 2’!D17 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@‘Test 2’!D19 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@‘Test 2’!D21</p>
- <h4 id="notes">Notes</h4>
- <ul>
- <li>Ensure the ODBC DSN is correctly configured and accessible.</li>
- <li>The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.</li>
- </ul>
- <p><a href="dsn2Text.html">DSN2Text</a> - Save DSN Query as text file</p>
+ <pre><code>18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@&#39;Test 2&#39;!D11
+18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@&#39;Test 2&#39;!D13
+18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@&#39;Test 2&#39;!D15
+18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@&#39;Test 2&#39;!D17
+18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@&#39;Test 2&#39;!D19
+18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@&#39;Test 2&#39;!D21
+
+
+#### Notes
+
+- Ensure the ODBC DSN is correctly configured and accessible.
+- The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.
+
+
+[DSN2Text](dsn2Text.html) - Save DSN Query as text file</code></pre>
  </main>
  <footer>
  <p>&copy; 2024 Blake Glanville</p>
+ <p>
+ <a href="https://github.com/coop-blake/DSN2Sheet">
+ <img src="https://img.shields.io/github/license/yourusername/your-repo?color=blue&label=License&style=flat-square" 
+alt="BSD-3-Clause License">
+ </a>
+ </p>
  </footer>
 </body>
 </html>

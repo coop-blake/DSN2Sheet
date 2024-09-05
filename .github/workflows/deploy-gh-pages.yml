@@ -76,10 +76,12 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: test-results
-          path: tests.xml
+          path: public/tests.xml
 
       - name: Include Test Results in Documentation
         run: |
+          ls -l tests.xml || true
+          cat tests.xml || true
           cp tests.xml public/
           #pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 

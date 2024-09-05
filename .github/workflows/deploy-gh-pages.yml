@@ -73,6 +73,11 @@ jobs:
       - name: Copy CSS
         run: cp documentation/html/index.css public/index.css
 
+      - uses: actions/download-artifact@master
+      with:
+        name: test-results
+        path: tests.xml
+
       - name: Include Test Results in Documentation
         run: |
           cp tests.xml public/

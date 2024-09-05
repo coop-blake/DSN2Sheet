@@ -37,8 +37,8 @@ jobs:
       - name: Upload test results as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: test-results
-          path: tests.xml
+          name: tests.xml
+          path:
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,8 +47,8 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: test-results
-          path: tests.xml
+          name: tests.xml
+          path:
 
       - name: Include Test Results in Documentation
         run: |

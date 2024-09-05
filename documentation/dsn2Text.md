@@ -1,5 +1,12 @@
 ## DSN2Text
 
+Windows Command Line Utility  
+_(Pre-Release v0.1.2)_  
+Intel [32-bit](https://github.com/coop-blake/DSN2Text/releases/download/v0.1.2/DSN2Text-dev-i686.exe) [64-bit](https://github.com/coop-blake/DSN2Text/releases/download/v0.1.2/DSN2Text-dev-i686.exes)  
+Arm [64-bit](https://github.com/coop-blake/DSN2Text/releases/download/v0.1.2/DSN2Text-dev-aarch64.exes)
+
+#### Overview
+
 Query a DSN and create a CSV text file from the results.
 
 #### Requirements
@@ -39,7 +46,5 @@ $ ./DSN2Text.exe ODBC_DSN query.sql output.txt
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 
-Unsigned binaries built by github actions can be found in [releases](https://github.com/coop-blake/DSN2Sheet/releases/tag/v0.1.2).  
+[DSN2Sheet](dsn2Sheet.html) - Push a DSN Query to a Google Sheet
 
-
-[DSN2Sheet](dsn2Sheet.html) - Push a DSN Query to a Google Sheet  

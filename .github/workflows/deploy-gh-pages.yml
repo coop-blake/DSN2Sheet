@@ -30,6 +30,10 @@ jobs:
           # Convert test results to JUnit XML
           cargo2junit < test_output.log > tests.xml || true
 
+          # Verify the existence of tests.xml
+          ls -l tests.xml || true
+          cat tests.xml || true
+
       - name: Upload test results as artifact
         uses: actions/upload-artifact@v3
         with:

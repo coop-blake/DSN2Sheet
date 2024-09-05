@@ -1,5 +1,10 @@
 ## DSN2Sheet
 
+Windows Command Line Utility
+
+Intel [32-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-i686.exe) [64-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-i686.exes)  
+Arm [64-bit](https://github.com/coop-blake/DSN2Sheet/releases/download/v0.1.2/DSN2Sheet-dev-aarch64.exes)
+
 #### Overview
 
 Query a DSN and place the results in a Google Sheet.
@@ -12,6 +17,7 @@ Query a DSN and place the results in a Google Sheet.
 #### Usage
 
 You can invoke DSN2Sheet be providing either a single target or a file containing multiple targets.
+
 ```
 ./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert]
 
@@ -30,21 +36,21 @@ Arguments:
 **Single Target**
 
 ```
-C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1  
+C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1
 C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
 ```
 
 **Multiple Targets**
 
 ```
-C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql targets.txt  
+C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql targets.txt
 C:\DSN2Sheet> DSN2Sheet.exe ODBC_DSN query.sql targets.txt path\to\custom\googleCert.json
 ```
 
 Each line of your _targets.txt_ should contain a Sheet ID and range, separated by an "@" symbol.
 
-
 **_example targets.txt_**
+
 ```
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D11
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D13
@@ -53,11 +59,10 @@ Each line of your _targets.txt_ should contain a Sheet ID and range, separated b
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D19
 18sm6sQSPceJjFijzj0qTBftQWkcHWRKE53pQ04iFl8c@'Test 2'!D21
 ```
+
 #### Notes
 
 - Ensure the ODBC DSN is correctly configured and accessible.
 - The Google Service Account JSON credentials should have sufficient permissions to modify the specified Google Sheets.
-
-
 
 [DSN2Text](dsn2Text.html) - Save DSN Query as text file

@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Rust environment
+      - name: Set up Rust environment (Stable)
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -23,7 +23,12 @@ jobs:
         run: cargo install cargo2junit
 
       - name: Run tests and generate JUnit report
-        run: cargo test --no-fail-fast -- --format=json | cargo2junit > tests.xml
+        run: |
+          # Run tests and capture plain-text output
+          cargo test --no-fail-fast | tee test_output.log
+
+          # Convert test results to JUnit XML
+          cargo2junit < test_output.log > tests.xml
 
       - name: Upload test results as artifact
         uses: actions/upload-artifact@v3

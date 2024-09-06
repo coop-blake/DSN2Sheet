@@ -31,7 +31,7 @@ jobs:
           ls -l test_output.json || true
           cat test_output.json || true
 
-          ls test_output.log || true
+          cat test_output.log || true
           # Convert test results to JUnit XML
           cargo2junit < test_output.log > tests.xml || true
 

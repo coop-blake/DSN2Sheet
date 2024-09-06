@@ -27,6 +27,10 @@ jobs:
           # Run all integration tests (those in the `tests` directory)
           cargo test -- --nocapture > test_output.log || true
 
+          cargo test --format=json > test_output.json || true
+          ls -l test_output.json || true
+          cat test_output.json || true
+
           ls test_output.log || true
           # Convert test results to JUnit XML
           cargo2junit < test_output.log > tests.xml || true

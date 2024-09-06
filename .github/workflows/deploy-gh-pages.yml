@@ -53,11 +53,6 @@ jobs:
         with:
           name: test-output
 
-      - name: Include Test Results in Documentation
-        run: |
-          mkdir -p public
-          pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
-
       - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
@@ -79,6 +74,7 @@ jobs:
           pandoc documentation/dsn2Text.md -s --no-highlight --template documentation/html/index.html -o public/dsn2Text.html     
           sed -i 's/^\s*<span/<span/g' "public/dsn2Text.html"     
           sed -i 's/^\s*\([^<]\)/\1/g' "public/dsn2Text.html"
+          pandoc tests.xml -s --no-highlight --template documentation/html/index.html -o public/test_results.html
 
       - name: Copy CSS
         run: cp documentation/html/index.css public/index.css

@@ -142,81 +142,37 @@ jobs:
     
       - name: Create tag
         id: create_tag
-        shell: bash
+        shell: pwsh
         run: |
-          TAG="pre-${VERSION}-build-${GITHUB_RUN_NUMBER}"
-          echo "Generated release tag: $TAG"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          $version = (Get-Content ./release/version.txt -ErrorAction SilentlyContinue)
+      
+          if (-not $version) {
+            throw "Version is empty or missing"
+          }
+      
+          $version = $version.Trim()
+          $tag = "pre-$version-build-$env:GITHUB_RUN_NUMBER"
+      
+          Write-Host "Generated tag: [$tag]"
+      
+          "tag=$tag" >> $env:GITHUB_OUTPUT
           
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub Dev Release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.create_tag.outputs.tag }}
-          release_name: Dev Build ${{ steps.create_tag.outputs.tag }}
+          name: Dev Build ${{ steps.create_tag.outputs.tag }}
           body: |
             Automated build from the dev branch.
           draft: false
           prerelease: true
-
-      - name: Upload DSN2Sheet Release Asset x86_64
-        uses: actions/upload-release-asset@v1
+          target_commitish: dev
+          files: |
+            ./release/x86_64/DSN2Sheet-dev-x86_64.exe
+            ./release/x86_64/DSN2Text-dev-x86_64.exe
+            ./release/i686/DSN2Sheet-dev-i686.exe
+            ./release/i686/DSN2Text-dev-i686.exe
+            ./release/aarch64/DSN2Sheet-dev-aarch64.exe
+            ./release/aarch64/DSN2Text-dev-aarch64.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/x86_64/DSN2Sheet-dev-x86_64.exe
-          asset_name: DSN2Sheet-dev-x86_64.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload DSN2Text Release Asset x86_64
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/x86_64/DSN2Text-dev-x86_64.exe
-          asset_name: DSN2Text-dev-x86_64.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload DSN2Sheet Release Asset i686
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/i686/DSN2Sheet-dev-i686.exe
-          asset_name: DSN2Sheet-dev-i686.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload DSN2Text Release Asset i686
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/i686/DSN2Text-dev-i686.exe
-          asset_name: DSN2Text-dev-i686.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload DSN2Sheet Release Asset aarch64
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/aarch64/DSN2Sheet-dev-aarch64.exe
-          asset_name: DSN2Sheet-dev-aarch64.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload DSN2Text Release Asset aarch64
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release/aarch64/DSN2Text-dev-aarch64.exe
-          asset_name: DSN2Text-dev-aarch64.exe
-          asset_content_type: application/octet-stream

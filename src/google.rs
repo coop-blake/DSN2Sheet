@@ -16,6 +16,7 @@ pub async fn send_to_multiple_targets(
     google_cert: String,
     data_for_google: Vec<Vec<String>>,
     targets: Vec<(String, String)>,
+    google_update_as_user_entered: bool,
 ) -> Result<(), String> {
     let semaphore = Arc::new(Semaphore::new(1));
     let mut tasks = vec![];
@@ -32,6 +33,7 @@ pub async fn send_to_multiple_targets(
                 data_for_google.clone(),
                 &sheet_id,
                 &sheet_range,
+                google_update_as_user_entered,
             )
             .await
             {
@@ -53,6 +55,7 @@ pub async fn send_data_to_google_sheet(
     data: Vec<Vec<String>>,
     spreadsheet_id: &str,
     range: &str,
+    google_update_as_user_entered: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // Build the HTTPS connector with desired configurations
     let https_connector = HttpsConnector::from(
@@ -106,8 +109,14 @@ pub async fn send_data_to_google_sheet(
         .await?;
 
     // Prepare the request to append values
+    //how the input data should be interpreted
+    let value_input_option = if google_update_as_user_entered {
+        "USER_ENTERED"
+    } else {
+        "RAW"
+    };
     let request = BatchUpdateValuesRequest {
-        value_input_option: Some("RAW".to_string()), // How the input data should be interpreted
+        value_input_option: Some(value_input_option.to_string()), // How the input data should be interpreted
         data: Some(vec![value_range]),
         include_values_in_response: None,
         response_value_render_option: None,

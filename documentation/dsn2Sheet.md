@@ -20,7 +20,7 @@ You can invoke DSN2Sheet be providing either a single target or a file containin
 
 ```
 
-./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert]
+./DSN2Sheet.exe <DSN> <sqlFile> [<sheetID> <sheetRange> | targetsFile] [googleCert] [--GoogleUpdateAsUserEntered]
 
 
 Arguments:
@@ -30,6 +30,7 @@ Arguments:
 - sheetRange: Range within the Google Sheet where data will be placed (e.g., "Sheet1!A1").
 - targetsFile: Path to a text file containing multiple sheet IDs and ranges. If specified, `sheetID` and `sheetRange` are not required.
 - googleCert (optional): Path to the Google Service Account credentials JSON file (default: "googleCert.json").
+- --GoogleUpdateAsUserEntered (optional): When included (in any position), data is written to the sheet with USER_ENTERED semantics, so Google parses values such as numbers, dates, and formulas. By default data is written as RAW, exactly as returned by the query.
 ```
 
 #### Examples
@@ -39,13 +40,14 @@ Arguments:
 ```
 C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1
 C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 "Sheet one!A1" path/to/custom/googleCert.json
+C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql sheetID123 Sheet1!A1 --GoogleUpdateAsUserEntered
 ```
 
 **Multiple Targets**
 
 ```
 C:\DSN2Sheet> DSN2Sheet ODBC_DSN query.sql targets.txt
-C:\DSN2Sheet> DSN2Sheet.exe ODBC_DSN query.sql targets.txt path\to\custom\googleCert.json
+C:\DSN2Sheet> DSN2Sheet.exe ODBC_DSN query.sql targets.txt path\to\custom\googleCert.json --GoogleUpdateAsUserEntered
 ```
 
 Each line of your _targets.txt_ should contain a Sheet ID and range, separated by an "@" symbol.
